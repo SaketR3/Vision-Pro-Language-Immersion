@@ -11,54 +11,63 @@ import SwiftUI
 
 @MainActor
 class ObjectAnchorVisualization {
-    
     private let textBaseHeight: Float = 0.3
     private let alpha: CGFloat = 0.7
     private let axisScale: Float = 0.05
     
+    var translatedName: String?   // <- store translation text
+
     var boundingBoxOutline: BoundingBoxOutline
-    
     var entity: Entity
 
     init(for anchor: ObjectAnchor, withModel model: Entity? = nil) {
         boundingBoxOutline = BoundingBoxOutline(anchor: anchor, alpha: alpha)
-        
+
         let entity = Entity()
-        
 
         if let model {
-            // Overwrite the model's appearance to a yellow wireframe.
             var wireframeMaterial = PhysicallyBasedMaterial()
             wireframeMaterial.triangleFillMode = .fill
             wireframeMaterial.faceCulling = .back
             wireframeMaterial.blending = .transparent(opacity: 0.99)
-            
             model.applyMaterialRecursively(wireframeMaterial)
             entity.addChild(model)
         }
-        
+
         boundingBoxOutline.entity.isEnabled = model == nil
-        
         entity.addChild(boundingBoxOutline.entity)
-        
+
         entity.transform = Transform(matrix: anchor.originFromAnchorTransform)
         entity.isEnabled = anchor.isTracked
-        
-        let descriptionEntity = Entity.createText(anchor.referenceObject.name, height: textBaseHeight * axisScale)
-        descriptionEntity.transform.translation.x = textBaseHeight * axisScale
-        descriptionEntity.transform.translation.y = anchor.boundingBox.extent.y * 0.5
-        entity.addChild(descriptionEntity)
+
+        // Create the SwiftUI view
+        let panelView = AnchorPanelView(text: anchor.referenceObject.name)
+            .frame(width: 200, height: 80)
+            .background(.ultraThinMaterial)
+            .cornerRadius(15)
+
+        // Create the ViewAttachmentComponent
+        let attachment = ViewAttachmentComponent(rootView: panelView)
+
+        // Create an entity for the attachment and add the component
+        let viewEntity = Entity()
+        viewEntity.components.set(attachment)
+
+        // Position the view entity above the anchor
+        viewEntity.position = [0, anchor.boundingBox.extent.y + 0.15, 0]
+        entity.addChild(viewEntity)
+
         self.entity = entity
     }
-    
+
     func update(with anchor: ObjectAnchor) {
         entity.isEnabled = anchor.isTracked
         guard anchor.isTracked else { return }
-        
+
         entity.transform = Transform(matrix: anchor.originFromAnchorTransform)
         boundingBoxOutline.update(with: anchor)
     }
-    
+}
     @MainActor
     class BoundingBoxOutline {
         private let thickness: Float = 0.0025
@@ -109,4 +118,3 @@ class ObjectAnchorVisualization {
             }
         }
     }
-}

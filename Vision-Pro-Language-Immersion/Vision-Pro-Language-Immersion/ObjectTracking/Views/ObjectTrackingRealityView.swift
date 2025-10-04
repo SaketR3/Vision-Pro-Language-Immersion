@@ -64,6 +64,8 @@ struct ObjectTrackingRealityView: View {
                         } else {
                             print("Reference object name is empty.")
                         }
+                        
+                        
                         root.addChild(visualization.entity)
                     case .updated:
                         objectVisualizations[id]?.update(with: anchor)
