@@ -39,27 +39,15 @@ struct ObjectTrackingRealityView: View {
                         // The app displays the USDZ file that the reference object was trained on as
                         // a wireframe on top of the real-world object, if the .referenceobject file contains
                         // that USDZ file. If the original USDZ isn't available, the app displays a bounding box instead.
+//                        BeepPlayer.shared.playRandomBeep()
                         let model = appState.referenceObjectLoader.usdzsPerReferenceObjectID[anchor.referenceObject.id]
                         let visualization = ObjectAnchorVisualization(for: anchor, withModel: model)
                         self.objectVisualizations[id] = visualization
                         
                         let name = anchor.referenceObject.name
                         if !name.isEmpty {
-                            Task.detached {  // off the main actor to avoid blocking UI
-                                do {
-                                    let result = try await TranslationService.translate(text: name)
-                                    // Do whatever you need with the translation:
-                                    // e.g., log it, send to another API, update UI via main actor, etc.
-                                    print("Translation for \(name): \(result)")
-
-                                    // If you want to update UI, hop back to main actor:
-                                    await MainActor.run {
-                                        // e.g., show a label, toast, or store it somewhere in your state
-                                        // self.appState.lastTranslation = result
-                                    }
-                                } catch {
-                                    print("Translation request failed for \(name): \(error)")
-                                }
+                            Task {
+                                await ObjectDetectionAudioHandler.shared.playForDetectedObject(name: name)
                             }
                         } else {
                             print("Reference object name is empty.")
