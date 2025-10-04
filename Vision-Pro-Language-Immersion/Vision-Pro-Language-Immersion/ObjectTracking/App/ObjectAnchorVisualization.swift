@@ -12,7 +12,7 @@ import SwiftUI
 @MainActor
 class ObjectAnchorVisualization {
     
-    private let textBaseHeight: Float = 0.08
+    private let textBaseHeight: Float = 0.3
     private let alpha: CGFloat = 0.7
     private let axisScale: Float = 0.05
     
@@ -25,14 +25,12 @@ class ObjectAnchorVisualization {
         
         let entity = Entity()
         
-        let originVisualization = Entity.createAxes(axisScale: axisScale, alpha: alpha)
-        
+
         if let model {
             // Overwrite the model's appearance to a yellow wireframe.
             var wireframeMaterial = PhysicallyBasedMaterial()
             wireframeMaterial.triangleFillMode = .fill
             wireframeMaterial.faceCulling = .back
-//            wireframeMaterial.baseColor = .init(tint: .yellow)
             wireframeMaterial.blending = .transparent(opacity: 0.99)
             
             model.applyMaterialRecursively(wireframeMaterial)
@@ -41,7 +39,6 @@ class ObjectAnchorVisualization {
         
         boundingBoxOutline.entity.isEnabled = model == nil
         
-        entity.addChild(originVisualization)
         entity.addChild(boundingBoxOutline.entity)
         
         entity.transform = Transform(matrix: anchor.originFromAnchorTransform)
