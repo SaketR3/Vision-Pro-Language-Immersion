@@ -1,0 +1,42 @@
+<svg width="55" height="42" viewBox="0 0 55 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-87" y="-96" width="229" height="216"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(50px);clip-path:url(#bgblur_0_8_111_clip_path);height:100%;width:100%"></div></foreignObject><g filter="url(#filter0_dg_8_111)" data-figma-bg-blur-radius="100">
+<path d="M42 12C42 16.4183 38.4183 20 34 20H23.6667C17.7756 20 13 15.2244 13 9.33333C13 6.38781 15.3878 4 18.3333 4L34 4C38.4183 4 42 7.58172 42 12Z" fill="url(#paint0_linear_8_111)" shape-rendering="crispEdges"/>
+<path d="M42 12C42 16.4183 38.4183 20 34 20H23.6667C17.7756 20 13 15.2244 13 9.33333C13 6.38781 15.3878 4 18.3333 4L34 4C38.4183 4 42 7.58172 42 12Z" fill="url(#paint1_linear_8_111)" fill-opacity="0.2" shape-rendering="crispEdges"/>
+<path d="M42 12C42 16.4183 38.4183 20 34 20H23.6667C17.7756 20 13 15.2244 13 9.33333C13 6.38781 15.3878 4 18.3333 4L34 4C38.4183 4 42 7.58172 42 12Z" fill="url(#paint2_linear_8_111)" fill-opacity="0.2" shape-rendering="crispEdges"/>
+<path d="M34 19.5H23.667C18.0521 19.5 13.5 14.9479 13.5 9.33301C13.5002 6.66389 15.6639 4.50018 18.333 4.5L34 4.5C38.1421 4.5 41.5 7.85787 41.5 12C41.5 16.1421 38.1421 19.5 34 19.5Z" stroke="url(#paint3_radial_8_111)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_dg_8_111" x="-87" y="-96" width="229" height="216" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="9"/>
+<feGaussianBlur stdDeviation="6.4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.104166 0 0 0 0 0.101496 0 0 0 0 0.101496 0 0 0 0.71 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_8_111"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_8_111" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="2 2" numOctaves="3" seed="8360" />
+<feDisplacementMap in="shape" scale="5.4000000953674316" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100%" height="100%" />
+<feMerge result="effect2_texture_8_111">
+<feMergeNode in="displacedImage"/>
+</feMerge>
+</filter>
+<clipPath id="bgblur_0_8_111_clip_path" transform="translate(87 96)"><path d="M42 12C42 16.4183 38.4183 20 34 20H23.6667C17.7756 20 13 15.2244 13 9.33333C13 6.38781 15.3878 4 18.3333 4L34 4C38.4183 4 42 7.58172 42 12Z"/>
+</clipPath><linearGradient id="paint0_linear_8_111" x1="27.5" y1="20" x2="27.5" y2="4" gradientUnits="userSpaceOnUse">
+<stop stop-color="#73C2FB" stop-opacity="0.3"/>
+<stop offset="1" stop-color="#447395" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_8_111" x1="27.5" y1="20" x2="24.6564" y2="12.0071" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint2_linear_8_111" x1="27.5" y1="20" x2="27.5" y2="4" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="1" stop-color="#FFBB00"/>
+</linearGradient>
+<radialGradient id="paint3_radial_8_111" cx="0" cy="0" r="1" gradientTransform="matrix(-24.4429 -24.3636 2.11473 -26.1529 36.4589 23.8182)" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E9E9E9" stop-opacity="0.3"/>
+<stop offset="1" stop-color="#838383" stop-opacity="0.3"/>
+</radialGradient>
+</defs>
+</svg>
