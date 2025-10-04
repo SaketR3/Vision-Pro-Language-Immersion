@@ -14,7 +14,7 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             // Background image
-            Image("Group 26")
+            Image("BackgroundImage") // <-- Replace with your asset name
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
