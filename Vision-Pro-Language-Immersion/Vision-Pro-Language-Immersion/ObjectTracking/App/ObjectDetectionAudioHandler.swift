@@ -40,6 +40,7 @@ extension TranslationError: LocalizedError {
 // MARK: - API Service
 
 enum TranslationService {
+    
     /// Calls the audio endpoint with a few retries. On server 5xx, it throws (you could add a fallback to a non-audio endpoint if you want).
     static func translate(text: String, maxRetries: Int = 2) async throws -> TranslationResponse {
         var comps = URLComponents(string: "https://lingua-spatial-gemini-api.onrender.com/translate-fact-audio")

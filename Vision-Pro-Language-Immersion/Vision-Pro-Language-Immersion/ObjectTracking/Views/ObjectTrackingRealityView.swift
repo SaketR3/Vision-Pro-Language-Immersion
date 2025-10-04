@@ -47,7 +47,18 @@ struct ObjectTrackingRealityView: View {
                         let name = anchor.referenceObject.name
                         if !name.isEmpty {
                             Task {
-                                await ObjectDetectionAudioHandler.shared.playForDetectedObject(name: name)
+                                do {
+                                    // Get translation from your API
+                                    let response = try await TranslationService.translate(text: name)
+                                    
+                                    // Update the panel text
+                                    visualization.translatedName = response.translation
+                                    
+                                    // Optionally, still play the audio
+                                    await ObjectDetectionAudioHandler.shared.playForDetectedObject(name: name)
+                                } catch {
+                                    print("Translation failed for \(name): \(error)")
+                                }
                             }
                         } else {
                             print("Reference object name is empty.")
