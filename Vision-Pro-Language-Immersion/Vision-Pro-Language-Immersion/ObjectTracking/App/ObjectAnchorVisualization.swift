@@ -30,10 +30,10 @@ class ObjectAnchorVisualization {
         if let model {
             // Overwrite the model's appearance to a yellow wireframe.
             var wireframeMaterial = PhysicallyBasedMaterial()
-            wireframeMaterial.triangleFillMode = .lines
+            wireframeMaterial.triangleFillMode = .fill
             wireframeMaterial.faceCulling = .back
-            wireframeMaterial.baseColor = .init(tint: .yellow)
-            wireframeMaterial.blending = .transparent(opacity: 0.5)
+//            wireframeMaterial.baseColor = .init(tint: .yellow)
+            wireframeMaterial.blending = .transparent(opacity: 0.99)
             
             model.applyMaterialRecursively(wireframeMaterial)
             entity.addChild(model)
