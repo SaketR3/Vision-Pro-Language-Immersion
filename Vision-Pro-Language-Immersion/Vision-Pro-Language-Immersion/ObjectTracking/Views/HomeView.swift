@@ -12,75 +12,81 @@ struct HomeView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        ZStack {
+            // Background image
+            Image("Group 26")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
             
-            if appState.canEnterImmersiveSpace {
-                VStack(spacing: 16) {
-                    Image(systemName: "arkit")
-                        .font(.system(size: 60))
-                        .foregroundStyle(.tint)
-                    
-                    Text("Object Tracking")
-                        .font(.largeTitle)
-                        .bold()
-                    
-                    Text("Use your Vision Pro to detect and track 3D objects in your environment.")
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 40)
-                }
-            } else {
-                InfoLabel(appState: appState)
-                    .padding(.horizontal, 30)
-                    .frame(minWidth: 400, minHeight: 300)
-                    .fixedSize()
-            }
-            
-            Spacer()
-            
-            // Toolbar at the bottom
-            VStack(spacing: 12) {
+            // Main content
+            VStack(spacing: 20) {
+                Spacer()
+                
                 if appState.canEnterImmersiveSpace {
-                    if !appState.isImmersiveSpaceOpened {
-                        Button("Start Tracking Objects") {
-                            Task {
-                                switch await openImmersiveSpace(id: immersiveSpaceIdentifier) {
-                                case .opened:
-                                    break
-                                case .error:
-                                    print("Error opening immersive space \(immersiveSpaceIdentifier)")
-                                case .userCancelled:
-                                    print("User cancelled immersive space \(immersiveSpaceIdentifier)")
-                                @unknown default:
-                                    break
+                    VStack(spacing: 16) {
+                        Image(systemName: "arkit")
+                            .font(.system(size: 60))
+                            .foregroundStyle(.tint)
+                        
+                        Text("Object Tracking")
+                            .font(.largeTitle)
+                            .bold()
+                        
+                        Text("Use your Vision Pro to detect and track 3D objects in your environment.")
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal, 40)
+                    }
+                } else {
+                    InfoLabel(appState: appState)
+                        .padding(.horizontal, 30)
+                        .frame(minWidth: 400, minHeight: 300)
+                        .fixedSize()
+                }
+                
+                Spacer()
+                
+                // Toolbar at the bottom
+                VStack(spacing: 12) {
+                    if appState.canEnterImmersiveSpace {
+                        if !appState.isImmersiveSpaceOpened {
+                            Button("Start Tracking Objects") {
+                                Task {
+                                    switch await openImmersiveSpace(id: immersiveSpaceIdentifier) {
+                                    case .opened: break
+                                    case .error:
+                                        print("Error opening immersive space \(immersiveSpaceIdentifier)")
+                                    case .userCancelled:
+                                        print("User cancelled immersive space \(immersiveSpaceIdentifier)")
+                                    @unknown default: break
+                                    }
                                 }
                             }
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.large)
-                        .padding(.bottom, 8)
-                    } else {
-                        Button("Stop Tracking") {
-                            Task {
-                                await dismissImmersiveSpace()
-                                appState.didLeaveImmersiveSpace()
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.large)
+                            .padding(.bottom, 8)
+                        } else {
+                            Button("Stop Tracking") {
+                                Task {
+                                    await dismissImmersiveSpace()
+                                    appState.didLeaveImmersiveSpace()
+                                }
                             }
+                            .buttonStyle(.bordered)
                         }
-                        .buttonStyle(.bordered)
+                        
+                        Text(appState.isImmersiveSpaceOpened
+                             ? "This leaves the immersive space."
+                             : "This enters an immersive space, hiding all other apps.")
+                            .foregroundStyle(.secondary)
+                            .font(.footnote)
                     }
-                    
-                    Text(appState.isImmersiveSpaceOpened
-                         ? "This leaves the immersive space."
-                         : "This enters an immersive space, hiding all other apps.")
-                    .foregroundStyle(.secondary)
-                    .font(.footnote)
                 }
+                .padding(.bottom, 30)
             }
-            .padding(.bottom, 30)
+            .frame(minWidth: 400, minHeight: 400)
         }
-        .frame(minWidth: 400, minHeight: 400)
-        .glassBackgroundEffect()
         .onChange(of: scenePhase, initial: true) {
             handleScenePhase(scenePhase)
         }
