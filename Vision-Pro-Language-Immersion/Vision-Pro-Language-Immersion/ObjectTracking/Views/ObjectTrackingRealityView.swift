@@ -42,6 +42,28 @@ struct ObjectTrackingRealityView: View {
                         let model = appState.referenceObjectLoader.usdzsPerReferenceObjectID[anchor.referenceObject.id]
                         let visualization = ObjectAnchorVisualization(for: anchor, withModel: model)
                         self.objectVisualizations[id] = visualization
+                        
+                        let name = anchor.referenceObject.name
+                        if !name.isEmpty {
+                            Task.detached {  // off the main actor to avoid blocking UI
+                                do {
+                                    let result = try await TranslationService.translate(text: name)
+                                    // Do whatever you need with the translation:
+                                    // e.g., log it, send to another API, update UI via main actor, etc.
+                                    print("Translation for \(name): \(result)")
+
+                                    // If you want to update UI, hop back to main actor:
+                                    await MainActor.run {
+                                        // e.g., show a label, toast, or store it somewhere in your state
+                                        // self.appState.lastTranslation = result
+                                    }
+                                } catch {
+                                    print("Translation request failed for \(name): \(error)")
+                                }
+                            }
+                        } else {
+                            print("Reference object name is empty.")
+                        }
                         root.addChild(visualization.entity)
                     case .updated:
                         objectVisualizations[id]?.update(with: anchor)
@@ -68,3 +90,4 @@ struct ObjectTrackingRealityView: View {
         }
     }
 }
+
