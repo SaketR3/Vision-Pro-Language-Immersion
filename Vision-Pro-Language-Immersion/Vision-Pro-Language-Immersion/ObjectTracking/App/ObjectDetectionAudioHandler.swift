@@ -130,7 +130,7 @@ final class ObjectDetectionAudioHandler {
             playedNames.insert(name)
 
             // Prefer translation audio, fall back to fact audio if needed
-            let b64 = response.translation_audio_url ?? response.fact_audio_url
+            let b64 = response.fact_audio_url ?? response.fact_audio_url
 
             if let b64, !b64.isEmpty {
                 do {
