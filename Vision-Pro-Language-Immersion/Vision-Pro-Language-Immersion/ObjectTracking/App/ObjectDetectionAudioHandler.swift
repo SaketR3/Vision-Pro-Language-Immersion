@@ -105,6 +105,7 @@ final class ObjectDetectionAudioHandler {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        utterance.volume = 1.0
         tts.speak(utterance)
     }
 
@@ -130,25 +131,26 @@ final class ObjectDetectionAudioHandler {
             // Mark as played after we have a successful response to avoid repeated requests
             playedNames.insert(name)
 
-            // Prefer translation audio, fall back to fact audio if needed
-            let b64 = response.translation_audio_url ?? response.fact_audio_url
+            // Prefer fact audio, fall back to translation audio if needed
+            let b64 = response.fact_audio_url ?? response.translation_audio_url
 
             if let b64, !b64.isEmpty {
                 do {
                     let data = try AudioHelpers.decodeBase64AudioString(b64)
                     // Adjust the preferred extension if your backend is known to return mp3/m4a
                     let p = try AudioHelpers.makeAudioPlayer(from: data, preferredExtension: "wav")
+                    p.volume = 1.0
                     self.player = p
                     p.prepareToPlay()
                     p.play()
                 } catch {
                     print("Audio decode/playback failed for '\(name)': \(error)")
-                    // Fallback to TTS of the translation string
-                    self.speakFallback(response.translation)
+                    // Fallback to TTS of the fact string
+                    self.speakFallback(response.fact)
                 }
             } else {
                 print("No audio payload for object: \(name). Using TTS.")
-                self.speakFallback(response.translation)
+                self.speakFallback(response.fact)
             }
 
             // Optional: log text for debugging/UI
