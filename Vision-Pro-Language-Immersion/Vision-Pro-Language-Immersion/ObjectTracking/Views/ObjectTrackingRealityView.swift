@@ -45,23 +45,31 @@ struct ObjectTrackingRealityView: View {
                         self.objectVisualizations[id] = visualization
                         
                         let name = anchor.referenceObject.name
+
+                        // Fallback text shown immediately so the label is never empty/cropped while waiting for API
+                        let fallbackText = name.isEmpty ? "duck" : name
+                        visualization.translatedName = fallbackText
+
                         if !name.isEmpty {
                             Task {
                                 do {
                                     // Get translation from your API
                                     let response = try await TranslationService.translate(text: name)
-                                    
-                                    // Update the panel text
-                                    visualization.translatedName = response.translation
-                                    
+
+                                    // Prefer a non-empty translation; otherwise keep the fallback
+                                    let translated = response.translation.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    visualization.translatedName = translated.isEmpty ? fallbackText : translated
+
                                     // Optionally, still play the audio
                                     await ObjectDetectionAudioHandler.shared.playForDetectedObject(name: name)
                                 } catch {
+                                    // Keep the fallback text on failure
                                     print("Translation failed for \(name): \(error)")
                                 }
                             }
                         } else {
-                            print("Reference object name is empty.")
+                            // Name is empty; keep the fallback ("duck") so the label isn't blank
+                            print("Reference object name is empty. Using fallback text: \(fallbackText)")
                         }
                         
                         

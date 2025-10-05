@@ -10,11 +10,11 @@ struct AnchorPanelView: View {
     }
     
     var body: some View {
-        ZStack{
+   
             
-            Image("Rectangle 43").resizable().scaledToFit()
             
-            VStack(spacing: 8) {
+            
+            VStack() {
                 Text("\"\(text)\" in Spanish is")
                     .font(.headline)
                     .multilineTextAlignment(.center)
@@ -33,7 +33,7 @@ struct AnchorPanelView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-        }
+        
             
     }
 }
