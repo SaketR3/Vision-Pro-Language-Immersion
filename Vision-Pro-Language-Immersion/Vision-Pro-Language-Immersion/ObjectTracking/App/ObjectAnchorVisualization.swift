@@ -14,13 +14,14 @@ class ObjectAnchorVisualization {
     private let textBaseHeight: Float = 0.3
     private let alpha: CGFloat = 0.7
     private let axisScale: Float = 0.05
+    private let originalName: String
     
     var translatedName: String? {
         didSet {
             guard let panelEntity else { return }
             
             // Recreate a new SwiftUI attachment with the updated text
-            let newView = AnchorPanelView(text: translatedName ?? "")
+            let newView = AnchorPanelView(text: originalName, translatedText: translatedName ?? "")
             let newAttachment = ViewAttachmentComponent(rootView: newView)
             
             // Replace the old attachment
@@ -34,6 +35,7 @@ class ObjectAnchorVisualization {
     var panelEntity: Entity?
 
     init(for anchor: ObjectAnchor, withModel model: Entity? = nil) {
+        self.originalName = anchor.referenceObject.name
         boundingBoxOutline = BoundingBoxOutline(anchor: anchor, alpha: alpha)
 
         let entity = Entity()
@@ -54,7 +56,7 @@ class ObjectAnchorVisualization {
         entity.isEnabled = anchor.isTracked
 
         // Create the SwiftUI view
-        let panelView = AnchorPanelView(text: translatedName ?? anchor.referenceObject.name)
+        let panelView = AnchorPanelView(text: originalName, translatedText: translatedName ?? "")
             .frame(width: 200, height: 80)
             .background(.ultraThinMaterial)
             .cornerRadius(15)

@@ -2,30 +2,40 @@ import SwiftUI
 
 struct AnchorPanelView: View {
     let text: String
+    let translatedText: String
+    
+    init(text: String, translatedText: String = "") {
+        self.text = text
+        self.translatedText = translatedText
+    }
     
     var body: some View {
-        
-        ZStack {
-            Image("LabelBackground")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
+        ZStack{
+            
+            Image("Rectangle 43").resizable().scaledToFit()
             
             VStack(spacing: 8) {
-                Text("Duck in Spanish is")
+                Text("\"\(text)\" in Spanish is")
                     .font(.headline)
                     .multilineTextAlignment(.center)
-
-                Text(text)
-                    .font(.title.bold())
+                    .foregroundStyle(.secondary)
+                
+                Text(translatedText)
+                    .font(.title3.weight(.semibold))
                     .multilineTextAlignment(.center)
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.red, .purple, .blue],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
             }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
-    
+            
     }
 }
+
 
