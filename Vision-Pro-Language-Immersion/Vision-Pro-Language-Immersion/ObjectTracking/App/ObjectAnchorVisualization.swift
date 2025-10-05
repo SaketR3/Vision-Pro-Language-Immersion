@@ -37,6 +37,7 @@ class ObjectAnchorVisualization {
     init(for anchor: ObjectAnchor, withModel model: Entity? = nil) {
         self.originalName = anchor.referenceObject.name
         print("First: \(originalName)")
+        
         if self.originalName == "MyObjectTracker2 1"{
             self.originalName = "Duck"
         } else if self.originalName == "Apple Magic Keyboard"{
