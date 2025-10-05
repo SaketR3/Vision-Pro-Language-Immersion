@@ -41,6 +41,8 @@ class ObjectAnchorVisualization {
             self.originalName = "Duck"
         } else if self.originalName == "Apple Magic Keyboard"{
             self.originalName = "Keyboard"
+        } else if self.originalName == "Cara_Cara_Orange"{
+            self.originalName = "Orange"
         }
         print("First: \(originalName)")
         

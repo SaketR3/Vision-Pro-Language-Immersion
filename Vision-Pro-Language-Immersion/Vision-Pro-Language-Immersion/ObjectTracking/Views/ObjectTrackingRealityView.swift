@@ -46,7 +46,7 @@ struct ObjectTrackingRealityView: View {
                         
                         var name = anchor.referenceObject.name
                         if name ==  "MyObjectTracker2 1"{name = "Duck"} else if
-                            name == "Apple Magic Keyboard" {name = "Keyboard"}
+                            name == "Apple Magic Keyboard" {name = "Keyboard"} else if name == "Cara_Cara_Orange" {name = "Orange"}
                         
 
                         // Fallback text shown immediately so the label is never empty/cropped while waiting for API
