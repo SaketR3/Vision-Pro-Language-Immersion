@@ -50,7 +50,7 @@ struct ObjectTrackingRealityView: View {
                         
 
                         // Fallback text shown immediately so the label is never empty/cropped while waiting for API
-                        let fallbackText = name.isEmpty ? "duck" : name
+                        let fallbackText = !name.isEmpty ? "...." : name
                         visualization.translatedName = fallbackText
 
                         if !name.isEmpty {

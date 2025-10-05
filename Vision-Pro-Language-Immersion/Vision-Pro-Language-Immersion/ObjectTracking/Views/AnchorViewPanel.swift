@@ -8,12 +8,8 @@ struct AnchorPanelView: View {
         self.text = text
         self.translatedText = translatedText
     }
-    
     var body: some View {
    
-            
-            
-            
             VStack() {
                 Text("\"\(text)\" in Nahuatl is")
                     .font(.headline)
