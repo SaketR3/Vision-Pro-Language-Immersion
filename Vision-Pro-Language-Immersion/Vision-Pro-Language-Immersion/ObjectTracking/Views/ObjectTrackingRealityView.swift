@@ -44,7 +44,10 @@ struct ObjectTrackingRealityView: View {
                         let visualization = ObjectAnchorVisualization(for: anchor, withModel: model)
                         self.objectVisualizations[id] = visualization
                         
-                        let name = anchor.referenceObject.name
+                        var name = anchor.referenceObject.name
+                        if name ==  "MyObjectTracker2 1"{name = "Duck"} else if
+                            name == "Apple Magic Keyboard" {name = "Keyboard"}
+                        
 
                         // Fallback text shown immediately so the label is never empty/cropped while waiting for API
                         let fallbackText = name.isEmpty ? "duck" : name

@@ -14,7 +14,7 @@ class ObjectAnchorVisualization {
     private let textBaseHeight: Float = 0.3
     private let alpha: CGFloat = 0.7
     private let axisScale: Float = 0.05
-    private let originalName: String
+    private var originalName: String
     
     var translatedName: String? {
         didSet {
@@ -36,6 +36,14 @@ class ObjectAnchorVisualization {
 
     init(for anchor: ObjectAnchor, withModel model: Entity? = nil) {
         self.originalName = anchor.referenceObject.name
+        print("First: \(originalName)")
+        if self.originalName == "MyObjectTracker2 1"{
+            self.originalName = "Duck"
+        } else if self.originalName == "Apple Magic Keyboard"{
+            self.originalName = "Keyboard"
+        }
+        print("First: \(originalName)")
+        
         boundingBoxOutline = BoundingBoxOutline(anchor: anchor, alpha: alpha)
 
         let entity = Entity()

@@ -15,7 +15,7 @@ struct AnchorPanelView: View {
             
             
             VStack() {
-                Text("\"\(text)\" in Spanish is")
+                Text("\"\(text)\" in Nahuatl is")
                     .font(.headline)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)

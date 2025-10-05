@@ -59,6 +59,8 @@ final class ReferenceObjectLoader {
         
         await withTaskGroup(of: Void.self) { group in
             for file in referenceObjectFiles {
+                print(file)
+                
                 let objectURL = Bundle.main.bundleURL.appending(path: file)
                 group.addTask {
                     await self.loadReferenceObject(objectURL)
